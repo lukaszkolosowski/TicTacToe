@@ -1,17 +1,34 @@
+import java.util.Scanner;
+
 public class TicTacToe {
     public static void main(String[] args) {
         System.out.println("Welcome in game. Enter board size.");
 
-        int size = 3;
-        char[][] board = new char [size][size];
-//                {
-//                        {'O', 'X', 'X'},
-//                        {'O', 'X', ' '},
-//                        {' ', 'O', 'O'}
-//                };
+        int size = new Scanner(System.in).nextInt();
+        char currentSymbol = 'X';
+        char[][] board = new char[size][size];
 
-        TicTacToe.printBoard(board);
+        while (true) {
+            TicTacToe.printBoard(board);
+            boolean correctMove = makeAMove(board, currentSymbol);
+            if (!correctMove) continue;
+            currentSymbol = currentSymbol == 'X' ? 'O' : 'X';
+        }
+    }
 
+    public static boolean makeAMove(char[][] board, char symbol) {
+        System.out.println(symbol + " your move");
+        System.out.println("Enter the row index");
+        int row = new Scanner(System.in).nextInt();
+        System.out.println("Enter the column index");
+        int column = new Scanner(System.in).nextInt();
+        boolean correctMove = board[row][column] == 0;
+        if (!correctMove) {
+            System.out.println("Incorrect move!");
+            return false;
+        }
+        board[row][column] = symbol;
+        return true;
     }
 
     public static void printBoard(char[][] board) {
@@ -33,5 +50,4 @@ public class TicTacToe {
             System.out.println();
         }
     }
-
 }
